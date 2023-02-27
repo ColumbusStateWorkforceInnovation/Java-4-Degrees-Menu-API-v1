@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  version: '1.1'
+  title: wiit-7340-degrees-at-cscc-api
+  description: Specification for the Degrees restaurant at Columbus State menu
+paths:
+  /api/menu/categories:
+    post:
+      summary: Create a new menu category
+      requestBody:
+        description: a representation of the menu category to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMenuCategory'
+      responses:
+        '201':
+          description:
+            The server created the menu category and the new menu category instance is available at the specified location.
+          headers:
+            Location:
+              description:
+                The location of the newly created category
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedMenuCategory'
+components:
+  schemas:
+    SavedMenuCategory:
+      type: object
+      description: Representation of a previously saved menu category
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: The menu category ID
+        categoryTitle:
+          type: string
+          description: The title of this menu category
+        categoryNotes:
+          type: string
+          description: Notes about this menu category
+        sortOrder:
+          type: integer
+          format: int32
+          description: values used to order items for display purposes
+          default: 0
+    NewMenuCategory:
+      type: object
+      description: Representation of a previously saved menu category
+      properties:
+        categoryTitle:
+          type: string
+          description: The title of this menu category
+        categoryNotes:
+          type: string
+          description: Notes about this menu category
+        sortOrder:
+          type: integer
+          format: int32
+          description: values used to order items for display purposes
+          default: 0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/cscc-java-iv/wiit-7340-degrees-at-cscc-api/1.1
